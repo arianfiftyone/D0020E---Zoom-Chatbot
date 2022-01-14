@@ -321,7 +321,7 @@ app.post('/deauthorize', (req, res) => {
       },
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Basic ' + Buffer.from(process.env.zoom_client_id + ':' + process.env.zoom_client_secret).toString('base64'),
+        'Authorization': 'Basic ' + Buffer.from(process.env.client_id + ':' + process.env.client_secret).toString('base64'),
         'cache-control': 'no-cache'
       }
     }, (error, httpResponse, body) => {
