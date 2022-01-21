@@ -34,7 +34,7 @@ function sendPollMsg(chatbotToken, event, command_param_splitted) {
                 {
                   'text': 'Results',
                   'value': 'poll-results',
-                  'style': ''
+                  'style': 'Default'
                 }
               ]
             }
@@ -56,6 +56,7 @@ function sendPollMsg(chatbotToken, event, command_param_splitted) {
       }
     })
 }
+
 
 function sendPollActionMsg(chatbotToken, event, up_vote, down_vote) {
   request({
@@ -88,8 +89,9 @@ function sendPollActionMsg(chatbotToken, event, up_vote, down_vote) {
       console.log(body)
     }
   }) 
-  
 }
+
+
 
 module.exports = {
     sendPollMsg,

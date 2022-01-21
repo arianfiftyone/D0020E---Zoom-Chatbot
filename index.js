@@ -7,6 +7,7 @@ const request = require('request')
 const repeatFunction = require('./functions/repeat.js')
 const pollFunction = require('./functions/poll.js')
 const multipollFunction = require('./functions/multipoll.js')
+const coinflipFunction = require('./functions/coinflip.js')
 
 // Gigaomega object
 const {
@@ -60,11 +61,13 @@ app.post('/' + process.env.slash_command, async function (req, res) {
 })
 
 // variables
-let up_vote
-let down_vote
+let upVote
+let downVote
 var pollResultsDisplayed
 var mpollResultsDisplayed
 var commandParamChoices
+let pollCountAlternatives = {}
+
 
 // calls chatbot.on() function below based on what is sent (commands or actions)
 chatbot.on('commands', async function (event) {
@@ -76,45 +79,45 @@ chatbot.on('commands', async function (event) {
   })
 
   // split at first whitespace after /zchatbot, i.e second command is either repeat or poll atm
-  let secondCommand = event.message.split(" ")[0]
+  let secondCommand = event.message.split(' ')[0]
   var commandParamIndex = event.message.indexOf(' ')
-  var commandParamSplitted = event.payload.cmd.slice(commandParamIndex)
-
-  if (secondCommand === 'repeat') {
-
-    withChatbotToken(repeatFunction)
-
-  } 
+  var commandParamSplitted = event.payload.cmd.slice(commandParamIndex).trim()
+  console.log("Event message: " + event.message)
+  console.log("This is second command: " + secondCommand)
+  console.log("This is commandparamindex: " + commandParamIndex)
+  console.log("This is commandparamsplitted: " + commandParamSplitted)
+  if (event.message.split(' ').length > 1) {
+    if (secondCommand === 'repeat') {
+      withChatbotToken(repeatFunction)
+    } 
+    else if (secondCommand === 'coinflip') {
+      withChatbotToken(coinflipFunction)
+    }
+    else if (secondCommand === 'poll') {
   
-  else if (secondCommand === 'poll') {
-
-    up_vote = 0
-    down_vote = 0
-    pollResultsDisplayed = true
-
-    try {
-      withChatbotToken(pollFunction.sendPollMsg)
-    } catch (error) {
-      console.log(error)
+      upVote = 0
+      downVote = 0
+      pollResultsDisplayed = true
+  
+      try {
+        withChatbotToken(pollFunction.sendPollMsg)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    else if (secondCommand === 'multipoll') {
+  
+      mpollResultsDisplayed = true
+      commandParamChoices = commandParamSplitted.split(', ')
+      
+      try {
+        withChatbotToken(multipollFunction.sendMpollMsg)
+      } catch (error) {
+        console.log(error)
+      }
     }
   }
-
-  else if (secondCommand === 'multipoll') {
-
-    a_vote = 0
-    b_vote = 0
-    c_vote = 0
-    d_vote = 0
-    mpollResultsDisplayed = true
-
-    commandParamChoices = commandParamSplitted.split(', ')
-    
-    try {
-      withChatbotToken(multipollFunction.sendMpollMsg)
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  
 
   // takes a callback function as a parameter 
   function withChatbotToken(callbackFunction) {
@@ -129,16 +132,15 @@ chatbot.on('commands', async function (event) {
         console.log('Error getting chatbot_token from Zoom.', error)
       } else {
         body = JSON.parse(body)
-        if (secondCommand === 'poll' || secondCommand === 'repeat') {
-          callbackFunction(body.access_token, event, commandParamSplitted)
+        if (secondCommand === 'multipoll') {
+          pollCountAlternatives = callbackFunction(body.access_token, event, commandParamChoices)
         }
-        else if (secondCommand === 'multipoll') {
-          callbackFunction(body.access_token, event, commandParamChoices)
+        else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip') {
+          callbackFunction(body.access_token, event, commandParamSplitted)
         }
       }
     })
   }
-
 })
 
 
@@ -156,32 +158,19 @@ chatbot.on('actions', async function (event) {
   // count the votes
   else if (event.payload.actionItem.value === 'up-vote')
   {
-    up_vote += 1
+    upVote += 1
   }
   else if (event.payload.actionItem.value === 'down-vote')
   {
-    down_vote += 1
+    downVote += 1
   }
   // count the alternatives
-  else if (event.payload.actionItem.value === 'a-vote') {
-    a_vote += 1
-  }
-  else if (event.payload.actionItem.value === 'b-vote') {
-    b_vote += 1
-  }
-  else if (event.payload.actionItem.value === 'c-vote') {
-    c_vote += 1
-  }
-  else if (event.payload.actionItem.value === 'd-vote') {
-    d_vote += 1
+  else if (pollCountAlternatives[event.payload.actionItem.value]++){
   }
   
-  console.log('Up Vote: ' + up_vote)
-  console.log('Down Vote: ' + down_vote)
-  console.log('Votes on ' + commandParamChoices[1] + ': ' + a_vote)
-  console.log('Votes on ' + commandParamChoices[2] + ': ' + b_vote)
-  console.log('Votes on ' + commandParamChoices[3] + ': ' + c_vote)
-  console.log('Votes on ' + commandParamChoices[4] + ': ' + d_vote)
+  console.log('Up Vote: ' + upVote)
+  console.log('Down Vote: ' + downVote)
+  console.log(pollCountAlternatives)
 
   // repeat
   function withChatbotToken(callbackFunction) {
@@ -197,10 +186,10 @@ chatbot.on('actions', async function (event) {
       } else {
         body = JSON.parse(body)
         if (event.payload.actionItem.value === "poll-results") {
-          callbackFunction(body.access_token, event, up_vote, down_vote)
+          callbackFunction(body.access_token, event, upVote, downVote)
         }
         else if (event.payload.actionItem.value === "mpoll-results") {
-          callbackFunction(body.access_token, event, commandParamChoices, a_vote, b_vote, c_vote, d_vote)
+          callbackFunction(body.access_token, event, commandParamChoices, pollCountAlternatives)
         }
       }
     })
