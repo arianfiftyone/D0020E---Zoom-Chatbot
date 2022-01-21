@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "repository": {
-    "type": "git",
+    "type": "git", 
     "url": "git+https://github.com/arianfiftyone/D0020E---Zoom-Chatbot.git"
   },
   "author": "",
