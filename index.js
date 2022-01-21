@@ -82,10 +82,6 @@ chatbot.on('commands', async function (event) {
   let secondCommand = event.message.split(' ')[0]
   var commandParamIndex = event.message.indexOf(' ')
   var commandParamSplitted = event.payload.cmd.slice(commandParamIndex).trim()
-  console.log("Event message: " + event.message)
-  console.log("This is second command: " + secondCommand)
-  console.log("This is commandparamindex: " + commandParamIndex)
-  console.log("This is commandparamsplitted: " + commandParamSplitted)
   if (event.message.split(' ').length > 1) {
     if (secondCommand === 'repeat') {
       withChatbotToken(repeatFunction)
@@ -167,10 +163,6 @@ chatbot.on('actions', async function (event) {
   // count the alternatives
   else if (pollCountAlternatives[event.payload.actionItem.value]++){
   }
-  
-  console.log('Up Vote: ' + upVote)
-  console.log('Down Vote: ' + downVote)
-  console.log(pollCountAlternatives)
 
   // repeat
   function withChatbotToken(callbackFunction) {
