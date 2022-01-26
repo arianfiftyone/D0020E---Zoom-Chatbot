@@ -11,14 +11,14 @@ function coinflip(chatbotToken, event, commandParamSplitted) {
 
     if(commandParamSplitted !== 'heads' && commandParamSplitted  !== 'tails'){
       console.log("Command för COINFLIP: " + commandParamSplitted)
-      textToUser = 'please pick [heads] or [tails] (ex: coinflip heads)'
+      textToUser = 'Please pick [heads] or [tails] (ex: coinflip heads)'
     } else {
-      textToUser = 'you picked: ' + commandParamSplitted + '\nthe result was: ' + headsOrTails + '\n'
+      textToUser = 'You picked: ' + commandParamSplitted + '\nThe result was: ' + headsOrTails + '\n'
         
       if(headsOrTails === commandParamSplitted){
         textToUser = textToUser + 'YOU WIN!'
       } else {
-        textToUser = textToUser + 'you lost.'
+        textToUser = textToUser + 'YOU LOST!'
       }
     }
 
