@@ -1,13 +1,10 @@
 const request = require('request')
-var hej = "hej"
-
-
 
 function getWeatherMessage (chatbotToken, event, commandParamSplitted) {
     let city = commandParamSplitted
     var message = ""
     let request = require('request') // lite osäker??
-    request(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=e4d6b668c5f6269861e95ae8b2a0c6e4`, function(error, response, body) {
+    request(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${process.env.openweather_accesskey}`, function(error, response, body) {
         if (response.statusCode === 200) {
             let data = JSON.parse(body)
             message = ("The weather in " + city + " is " + data.list[0].weather[0].description);
