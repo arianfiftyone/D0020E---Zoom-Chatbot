@@ -9,7 +9,7 @@ function getWeatherMessage (chatbotToken, event, commandParamSplitted) {
     request(`https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=e4d6b668c5f6269861e95ae8b2a0c6e4`, function(error, response, body) {
         if (response.statusCode === 200) {
             let data = JSON.parse(body)
-            message = ("The weather in your city " + city + " is " + data.list[0].weather[0].description);
+            message = ("The weather in " + city + " is " + data.list[0].weather[0].description);
             sendWeatherRequest(chatbotToken, event, message)
         }
       })
