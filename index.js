@@ -7,7 +7,6 @@ const request = require('request')
 const repeatFunction = require('./functions/repeat.js')
 const pollFunction = require('./functions/poll.js')
 const multipollFunction = require('./functions/multipoll.js')
-const coinflipFunction = require('./functions/coinflip.js')
 const weatherFunction = require('./functions/weather.js')
 
 // Gigaomega object
