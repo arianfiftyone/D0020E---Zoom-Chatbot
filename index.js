@@ -8,6 +8,7 @@ const repeatFunction = require('./functions/repeat.js')
 const pollFunction = require('./functions/poll.js')
 const multipollFunction = require('./functions/multipoll.js')
 const coinflipFunction = require('./functions/coinflip.js')
+const weatherFunction = require('./functions/weather.js')
 
 // Gigaomega object
 const {
@@ -112,6 +113,9 @@ chatbot.on('commands', async function (event) {
         console.log(error)
       }
     }
+    else if (secondCommand === 'weather') {
+      withChatbotToken(weatherFunction)
+    }
   }
   
 
@@ -131,7 +135,7 @@ chatbot.on('commands', async function (event) {
         if (secondCommand === 'multipoll') {
           pollCountAlternatives = callbackFunction(body.access_token, event, commandParamChoices)
         }
-        else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip') {
+        else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip' || secondCommand === 'weather') {
           callbackFunction(body.access_token, event, commandParamSplitted)
         }
       }
