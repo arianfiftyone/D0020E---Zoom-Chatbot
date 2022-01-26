@@ -9,6 +9,8 @@ const pollFunction = require('./functions/poll.js')
 const multipollFunction = require('./functions/multipoll.js')
 const coinflipFunction = require('./functions/coinflip.js')
 const weatherFunction = require('./functions/weather.js')
+var hej = "hej"
+var hej2 = "hej2"
 
 // Gigaomega object
 const {
