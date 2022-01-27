@@ -2,6 +2,7 @@ const request = require('request')
 
 var info = {}
 
+
 function sendInfo(chatbotToken, event, commandParamSplitted) {
   let commandList = commandParamSplitted.split(' ')
   if(commandList[0] == 'list') {
@@ -9,11 +10,13 @@ function sendInfo(chatbotToken, event, commandParamSplitted) {
     textToUser = 'You can get information about the following things: ' + keys
   }
   else if (commandList[0] == 'printAll') {
-    textToUser = 'All info currently avaliable is ' + JSON.stringify(info)
+    textToUser = ""
+    for (key in info) {
+      textToUser += key + ": " + info[key] + "\n"
+    }
   }
   else if (commandList[0] === 'add') {
-    addInfo(commandList)
-    textToUser = "Info added!"
+    textToUser = addInfo(commandList)
   }
   else if(commandList[0] === 'remove') {
     textToUser = removeInfo(commandList[1])
@@ -62,6 +65,8 @@ function addInfo(commandList) {
     valueString += commandList[i] +  " "
   }
   info[commandList[1]] = valueString
+  textToUser = "Info added!"
+  return textToUser
 }
 
 function removeInfo(keyToRemove) {
