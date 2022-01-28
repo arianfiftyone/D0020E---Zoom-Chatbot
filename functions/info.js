@@ -2,21 +2,21 @@ const request = require('request')
 
 var info = {}
 
+
 function sendInfo(chatbotToken, event, commandParamSplitted) {
   let commandList = commandParamSplitted.split(' ')
   if(commandList[0] == 'list') {
     const keys = Object.keys(info)
     textToUser = 'You can get information about the following things: ' + keys
   }
-  else if (commandList[0] == 'all') {
-    textToUser = 'All info currently avaliable is displayed below: ' + printAllInfo(Object.keys(info), Object.values(info))
+  else if (commandList[0] == 'printAll') {
+    textToUser = ""
+    for (key in info) {
+      textToUser += key + ": " + info[key] + "\n"
+    }
   }
   else if (commandList[0] === 'add') {
-    addInfo(commandList)
-    textToUser = "Info added!"
-  }
-  else if (commandList[0] === 'find'){
-    textToUser = commandList[1] + ": " + info[commandList[1]] 
+    textToUser = addInfo(commandList)
   }
   else if(commandList[0] === 'remove') {
     textToUser = removeInfo(commandList[1])
@@ -60,23 +60,13 @@ function sendInfo(chatbotToken, event, commandParamSplitted) {
 }
 
 function addInfo(commandList) {
-    let valueString = ""
-    for (let i = 2; i < commandList.length; i++) {
-        valueString += commandList[i] +  " "
-    }
-    info[commandList[1]] = valueString
-}
-
-function printAllInfo(keys, values) {
-    console.log(keys)
-    console.log(values)
-    var printAll = "\n \n"
-    for (let i = 0; i < Object.keys(info).length; i++) {
-        const key = keys[i]
-        const value = values[i]
-        printAll = printAll + key + ": " + value + "\n"
-    }
-    return printAll
+  let valueString = ""
+  for (let i = 2; i < commandList.length; i++) {
+    valueString += commandList[i] +  " "
+  }
+  info[commandList[1]] = valueString
+  textToUser = "Info added!"
+  return textToUser
 }
 
 function removeInfo(keyToRemove) {
@@ -89,4 +79,4 @@ function removeInfo(keyToRemove) {
   }
   return textToUser
 }
-module.exports = sendInfo 
+module.exports = sendInfo
