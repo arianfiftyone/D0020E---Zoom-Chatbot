@@ -9,7 +9,7 @@ function getWeatherMessage (chatbotToken, event, commandParamSplitted) {
           let data = JSON.parse(body)
           message = ("The weather in " + city + " is " + data.list[0].weather[0].description);
           message = "The weather in " + city + " is " + data.list[0].weather[0].description + 
-          " \n" + "Temperature = " + Math.round(data.list[0].main.temp - 273.15) + " celsius \nThe wind speed is: " + data.list[0].wind.speed + "m/s"
+          " \n" + "Temperature: " + Math.round(data.list[0].main.temp - 273.15) + " celsius \nThe wind speed is: " + data.list[0].wind.speed + "m/s"
           sendWeatherRequest(chatbotToken, event, message)
       }
     })
