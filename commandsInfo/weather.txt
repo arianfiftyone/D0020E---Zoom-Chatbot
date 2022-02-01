@@ -1,0 +1,7 @@
+get weather data from a specified city
+
+usage in chat: (skip /[yourCommand] when directly talking to the bot)
+/[yourCommand] weather [city]
+
+example:
+/zoombot weather Berlin

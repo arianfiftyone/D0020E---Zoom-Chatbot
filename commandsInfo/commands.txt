@@ -1,0 +1,12 @@
+get information about how to use the different commands.
+write 'commands all' to list available commands
+flags: all
+
+example:
+/zoombot commands all
+
+usage in chat (skip /[yourCommand] when directly talking to the bot):
+/[yourCommand] weather [specified command]
+
+example:
+/zoombot commands weather

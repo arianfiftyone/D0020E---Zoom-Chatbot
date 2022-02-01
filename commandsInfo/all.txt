@@ -1,0 +1,9 @@
+available commands:
+
+commands
+coinflip
+info
+multipoll
+poll
+repeat
+weather

@@ -1,0 +1,11 @@
+the bot 'flips a coin' to do a pseudo-randomly genareted results of heads or tails.
+
+arguments:
+heads,
+tails,
+
+usage in chat (skip /[yourCommand] when directly talking to the bot):
+/[yourCommand] coinflip [heads or tails]
+
+example:
+/zoombot coinflip heads
