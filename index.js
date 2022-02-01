@@ -10,6 +10,7 @@ const multipollFunction = require('./functions/multipoll.js')
 const coinflipFunction = require('./functions/coinflip.js')
 const weatherFunction = require('./functions/weather.js')
 const infoFunction = require('./functions/info.js')
+const matchingFunction = require('./functions/longestmatch.js')
 
 // Gigaomega object
 const {
@@ -120,6 +121,9 @@ chatbot.on('commands', async function (event) {
     else if (secondCommand == 'info') {
       withChatbotToken(infoFunction)
     }
+    else {
+      withChatbotToken(matchingFunction)
+    }
   }
   
 
@@ -141,6 +145,9 @@ chatbot.on('commands', async function (event) {
         }
         else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip' || secondCommand === 'weather' || secondCommand === 'info') {
           callbackFunction(body.access_token, event, commandParamSplitted)
+        }
+        else {
+          callbackFunction(body.access_token, event, secondCommand)
         }
       }
     })
