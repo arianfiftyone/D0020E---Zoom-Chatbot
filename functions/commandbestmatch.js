@@ -21,7 +21,7 @@ function commandBestMatch(chatbotToken, event, secondCommand) {
             },
             'body': [{
             'type': 'message',
-            'text': 'Did you mean: ' + matches.bestMatch.target
+            'text': 'Did you mean: ' + matches.bestMatch.target + "?"
             }]
         }
         },
