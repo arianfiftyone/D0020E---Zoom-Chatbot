@@ -10,7 +10,7 @@ const multipollFunction = require('./functions/multipoll.js')
 const coinflipFunction = require('./functions/coinflip.js')
 const weatherFunction = require('./functions/weather.js')
 const infoFunction = require('./functions/info.js')
-const matchingFunction = require('./functions/longestmatch.js')
+const matchingFunction = require('./functions/commandbestmatch.js')
 const commandsFunction = require('./functions/commands.js')
 
 // Gigaomega object
