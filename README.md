@@ -57,6 +57,6 @@ To run the completed Chatbot locally, follow these steps,
    
  7. On your App Marketplace Dashboard, go to the **Local Test** page and click **Install**. After you click the **Authorize** button, you should be taken to your redirect url and see this,
 
-   `Thanks for installing the "your slash_command" for Zoom!`
+    `Thanks for installing the "your slash_command" for Zoom!`
 
 
