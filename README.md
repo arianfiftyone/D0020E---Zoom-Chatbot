@@ -12,7 +12,8 @@ This is a schoolproject in the course 'D0020E - Projekt i Datateknik' using the 
 2. [Ngrok.io](https://ngrok.com/)
 3. [Node.js](https://nodejs.org/en/)
 4. [A free Openweathermap account](https://openweathermap.org)
-5. 
+
+
 
 To run the completed Chatbot code locally, continue reading below.
 
