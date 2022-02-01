@@ -59,11 +59,11 @@ To run the completed Chatbot locally, follow these steps,
 
    After that, your app is ready to be installed!
    
-7. On your App Marketplace Dashboard, go to the **Local Test** page and click **Install**. After you click the **Authorize** button, you should be taken to your redirect url and see this,
+6. On your App Marketplace Dashboard, go to the **Local Test** page and click **Install**. After you click the **Authorize** button, you should be taken to your redirect url and see this,
    
    `Thanks for installing the "your slash_command" for Zoom!`
     
-8. Now that your Chatbot is installed on your Zoom account, go to a Zoom Chat channel and type,
+7. Now that your Chatbot is installed on your Zoom account, go to a Zoom Chat channel and type,
 
    `/"your slash_command" poll Pizza for lunch?`
 
