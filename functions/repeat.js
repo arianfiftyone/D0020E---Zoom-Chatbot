@@ -11,7 +11,7 @@ function sendRepeatMsg(chatbotToken, event, commandParamSplitted) {
           'account_id': event.payload.accountId,
           'content': {
             'head': {
-              'text': 'Repeat command header'
+              'text': 'Repeat'
             },
             'body': [{
               'type': 'message',

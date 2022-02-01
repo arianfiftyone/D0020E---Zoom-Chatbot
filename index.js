@@ -72,6 +72,10 @@ var mpollResultsDisplayed
 var commandParamChoices
 let pollCountAlternatives = {}
 
+let secondCommand
+let commandParamIndex
+let commandParamSplitted
+
 
 // calls chatbot.on() function below based on what is sent (commands or actions)
 chatbot.on('commands', async function (event) {
@@ -81,93 +85,98 @@ chatbot.on('commands', async function (event) {
   let app = chatbot.create({
     auth: connection
   })
-
+  
   // split at first whitespace after /zchatbot, i.e second command is either repeat or poll atm
-  let secondCommand = event.message.split(' ')[0]
-  var commandParamIndex = event.message.indexOf(' ')
-  var commandParamSplitted = event.payload.cmd.slice(commandParamIndex).trim()
-
+  secondCommand = event.message.split(' ')[0]
+  commandParamIndex = event.message.indexOf(' ')
+  commandParamSplitted = event.payload.cmd.slice(commandParamIndex).trim()
+  
   if (event.message.split(' ').length > 1) {
-    if (secondCommand === 'repeat') {
-      withChatbotToken(repeatFunction)
-    } 
-    else if (secondCommand === 'coinflip') {
-      withChatbotToken(coinflipFunction)
-    }
-    else if (secondCommand === 'poll') {
-  
-      upVote = 0
-      downVote = 0
-      pollResultsDisplayed = true
-  
-      try {
-        withChatbotToken(pollFunction.sendPollMsg)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    else if (secondCommand === 'multipoll') {
-  
-      mpollResultsDisplayed = true
-      commandParamChoices = commandParamSplitted.split(', ')
-      
-      try {
-        withChatbotToken(multipollFunction.sendMpollMsg)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    else if (secondCommand === 'weather') {
-      withChatbotToken(weatherFunction)
-    }
-    else if (secondCommand == 'info') {
-      withChatbotToken(infoFunction)
-    } 
-    else if (secondCommand == 'commands') {
-      withChatbotToken(commandsFunction)
-    }
-    else {
-      withChatbotToken(matchingFunction)
-    }
-  }
-  
-
-  // takes a callback function as a parameter 
-  function withChatbotToken(callbackFunction) {
-    request({
-      url: `https://zoom.us/oauth/token?grant_type=client_credentials`,
-      method: 'POST',
-      headers: {
-        'Authorization': 'Basic ' + Buffer.from(process.env.client_id + ':' + process.env.client_secret).toString('base64')
-      }
-    }, (error, httpResponse, body) => {
-      if (error) {
-        console.log('Error getting chatbot_token from Zoom.', error)
-      } else {
-        body = JSON.parse(body)
-        if (secondCommand === 'multipoll') {
-          pollCountAlternatives = callbackFunction(body.access_token, event, commandParamChoices)
-        }
-        else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip' || secondCommand === 'weather' || secondCommand === 'info' ||secondCommand == 'commands') {
-          callbackFunction(body.access_token, event, commandParamSplitted)
-        }
-        else {
-          callbackFunction(body.access_token, event, secondCommand)
-        }
-      }
-    })
+    checkCommands(event)
   }
 })
 
 
+// takes a callback function as a parameter 
+function withChatbotTokenCommands(callbackFunction, event) {
+  request({
+    url: `https://zoom.us/oauth/token?grant_type=client_credentials`,
+    method: 'POST',
+    headers: {
+      'Authorization': 'Basic ' + Buffer.from(process.env.client_id + ':' + process.env.client_secret).toString('base64')
+    }
+  }, (error, httpResponse, body) => {
+    if (error) {
+      console.log('Error getting chatbot_token from Zoom.', error)
+    } else {
+      body = JSON.parse(body)
+      if (secondCommand === 'multipoll') {
+        pollCountAlternatives = callbackFunction(body.access_token, event, commandParamChoices)
+      }
+      else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip' || secondCommand === 'weather' || secondCommand === 'info' || secondCommand == 'commands') {
+        callbackFunction(body.access_token, event, commandParamSplitted)
+      }
+      else {
+        secondCommand = callbackFunction(body.access_token, event, secondCommand)
+      }
+    }
+  })
+}
+
+// all botcommands are reachable from 'actions' and 'commands'
+function checkCommands(event) {
+  if (secondCommand === 'repeat') {
+    withChatbotTokenCommands(repeatFunction, event)
+  } 
+  else if (secondCommand === 'coinflip') {
+    withChatbotTokenCommands(coinflipFunction, event)
+  }
+  else if (secondCommand === 'poll') {
+    
+    upVote = 0
+    downVote = 0
+    pollResultsDisplayed = true
+  
+    try {
+      withChatbotTokenCommands(pollFunction.sendPollMsg, event)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  else if (secondCommand === 'multipoll') {
+  
+    mpollResultsDisplayed = true
+    commandParamChoices = commandParamSplitted.split(', ')
+    
+    try {
+      withChatbotTokenCommands(multipollFunction.sendMpollMsg, event)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  else if (secondCommand === 'weather') {
+    withChatbotTokenCommands(weatherFunction, event)
+  }
+  else if (secondCommand == 'info') {
+    withChatbotTokenCommands(infoFunction, event)
+  } 
+  else if (secondCommand == 'commands') {
+    withChatbotTokenCommands(commandsFunction, event)
+  }
+  else {
+    withChatbotTokenCommands(matchingFunction, event)
+  }
+  
+}
+
 // handles user actions on chatbot messages like editing text and form fields, clicking buttons, and choosing dropdown options
 chatbot.on('actions', async function (event) {
-
-  if(event.payload.actionItem.value === "poll-results" && pollResultsDisplayed) {
+  
+  if(event.payload.actionItem.value === 'poll-results' && pollResultsDisplayed) {
     pollResultsDisplayed = false
     withChatbotToken(pollFunction.sendPollActionMsg)
   }
-  else if (event.payload.actionItem.value === "mpoll-results" && mpollResultsDisplayed) {
+  else if (event.payload.actionItem.value === 'mpoll-results' && mpollResultsDisplayed) {
     mpollResultsDisplayed = false
     withChatbotToken(multipollFunction.sendMpollActionMsg)
   }
@@ -181,10 +190,20 @@ chatbot.on('actions', async function (event) {
     downVote += 1
   }
   // count the alternatives
-  else if (pollCountAlternatives[event.payload.actionItem.value]++){
+  else if (pollCountAlternatives[event.payload.actionItem.value]++) {
   }
-
-  // repeat
+  
+  if (event.payload.actionItem.value === 'yes') {
+    checkCommands(event)
+  }
+  else if (event.payload.actionItem.value === 'no') {
+    secondCommand = 'commands'
+    commandParamSplitted = 'all'
+    checkCommands(event)
+  }
+  
+  
+  
   function withChatbotToken(callbackFunction) {
     request({
       url: `https://zoom.us/oauth/token?grant_type=client_credentials`,
@@ -206,7 +225,7 @@ chatbot.on('actions', async function (event) {
       }
     })
   }
-
+  
 })
 
 // Other routes required to publish Chatbot to Zoom App Marketplace (not required if private (your Zoom account only) app)

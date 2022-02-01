@@ -11,7 +11,7 @@ function sendPollMsg(chatbotToken, event, command_param_splitted) {
       'account_id': event.payload.accountId,
       'content': {
         'head': {
-          'text': 'Vote poll command header'
+          'text': 'Vote poll'
         },
         'body': [{
           'type': 'section',
