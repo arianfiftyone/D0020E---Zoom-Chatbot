@@ -3,7 +3,7 @@ const stringSimilarity = require('string-similarity')
 const commands = ['repeat', 'coinflip', 'poll', 'multipoll', 'weather', 'info']
 
 
-function longestMatch(chatbotToken, event, secondCommand) {
+function commandBestMatch(chatbotToken, event, secondCommand) {
 
     let matches = stringSimilarity.findBestMatch(secondCommand, commands)
 
@@ -38,4 +38,4 @@ function longestMatch(chatbotToken, event, secondCommand) {
     })
 }
 
-module.exports = longestMatch
+module.exports = commandBestMatch
