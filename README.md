@@ -1,4 +1,2 @@
-# D0020E---Zoom-Chatbot
-A chatbot for zoom
+# A chatbot for Zoom
 
-About the Zoom Chatbot
