@@ -36,8 +36,8 @@ To run the completed Chatbot locally, follow these steps,
    
 2. Add this code to your .env file
 
-   `client_id=Required` Your Zoom **Development Client ID**, found in your Zoom app's **App credentials** tab.
-   `client_secret=Required` Your Zoom **Development Client Secret**, found in your Zoom app's **App credentials** tab.
+   `client_id=Required` Your Zoom **Development Client ID**, found in your Zoom app's **App credentials** tab. <br />
+   `client_secret=Required` Your Zoom **Development Client Secret**, found in your Zoom app's **App credentials** tab. <br />
    `verification_token=Required` The Zoom **Verification Token**, found in your Zoom app's **Feature** tab.
    `bot_jid=Required` Your Zoom **Development Bot JID**, found in your Zoom app's **Feature** tab.
    `slash_command=Required` Your Zoom **Slash command**, found in your Zoom app's **Feature** tab.
