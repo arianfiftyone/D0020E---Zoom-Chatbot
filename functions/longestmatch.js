@@ -1,12 +1,11 @@
 const request = require('request')
-var stringSimilarity = require('string-similarity')
-var tempCommands = ['repeat', 'coinflip', 'poll', 'multipoll', 'weather', 'info']
-let matches
+const stringSimilarity = require('string-similarity')
+const commands = ['repeat', 'coinflip', 'poll', 'multipoll', 'weather', 'info']
 
 
 function longestMatch(chatbotToken, event, secondCommand) {
-    
-    matches = stringSimilarity.findBestMatch(secondCommand, tempCommands)
+
+    let matches = stringSimilarity.findBestMatch(secondCommand, commands)
 
     request({
         url: 'https://api.zoom.us/v2/im/chat/messages',

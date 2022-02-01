@@ -10,7 +10,11 @@ const multipollFunction = require('./functions/multipoll.js')
 const coinflipFunction = require('./functions/coinflip.js')
 const weatherFunction = require('./functions/weather.js')
 const infoFunction = require('./functions/info.js')
+<<<<<<< HEAD
 const matchingFunction = require('./functions/longestmatch.js')
+=======
+const commandsFunction = require('./functions/commands.js')
+>>>>>>> 9e361b115434eca9caf930ce567a992d06a6194a
 
 // Gigaomega object
 const {
@@ -85,6 +89,7 @@ chatbot.on('commands', async function (event) {
   let secondCommand = event.message.split(' ')[0]
   var commandParamIndex = event.message.indexOf(' ')
   var commandParamSplitted = event.payload.cmd.slice(commandParamIndex).trim()
+
   if (event.message.split(' ').length > 1) {
     if (secondCommand === 'repeat') {
       withChatbotToken(repeatFunction)
@@ -120,6 +125,9 @@ chatbot.on('commands', async function (event) {
     }
     else if (secondCommand == 'info') {
       withChatbotToken(infoFunction)
+    } 
+    else if (secondCommand == 'commands') {
+      withChatbotToken(commandsFunction)
     }
     else {
       withChatbotToken(matchingFunction)
@@ -143,11 +151,15 @@ chatbot.on('commands', async function (event) {
         if (secondCommand === 'multipoll') {
           pollCountAlternatives = callbackFunction(body.access_token, event, commandParamChoices)
         }
-        else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip' || secondCommand === 'weather' || secondCommand === 'info') {
+        else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip' || secondCommand === 'weather' || secondCommand === 'info' ||secondCommand == 'commands') {
           callbackFunction(body.access_token, event, commandParamSplitted)
         }
         else {
+<<<<<<< HEAD
           callbackFunction(body.access_token, event, secondCommand)
+=======
+          console.log('could not find secondCommand [' + secondCommand + ']')
+>>>>>>> 9e361b115434eca9caf930ce567a992d06a6194a
         }
       }
     })

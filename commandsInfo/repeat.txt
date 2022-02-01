@@ -1,0 +1,7 @@
+Let the bot repeat your message to send private messages to the chat qroup
+
+usage in chat (skip /[yourCommand] when directly talking to the bot):
+/[yourCommand] repeat [input]
+
+example:
+/zoombot repeat I love you!
