@@ -155,11 +155,7 @@ chatbot.on('commands', async function (event) {
           callbackFunction(body.access_token, event, commandParamSplitted)
         }
         else {
-<<<<<<< HEAD
           callbackFunction(body.access_token, event, secondCommand)
-=======
-          console.log('could not find secondCommand [' + secondCommand + ']')
->>>>>>> 9e361b115434eca9caf930ce567a992d06a6194a
         }
       }
     })
