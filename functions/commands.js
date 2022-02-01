@@ -2,14 +2,10 @@ const request = require('request')
 
 function sendCommands(chatbotToken, event, commandParamSplitted) {
 
-  var textToUser='this function is still in development'
-  //else, send info about asked command
-  //now, we input this for hand but we will look if this can be automated in some way..
+  var textToUser = 'This function is still in development.'
 
   try{
-      console.log(commandParamSplitted.search('/'))//debug, remove later
       if(commandParamSplitted.search('/') !== -1){
-        
         console.log('WARNING, ATTEMPT OF UNAUTHORIZED FILE ACCESS ATTEMPTED\n')
         throw err
       }
@@ -18,8 +14,7 @@ function sendCommands(chatbotToken, event, commandParamSplitted) {
       fs.readFile(filename, 'utf8', function(err, data) {
 
         if(err){
-          console.log('shit man this no good')
-          textToUser="could not find info for " + commandParamSplitted
+          textToUser="Could not find info for " + commandParamSplitted
           makeRequest(chatbotToken, event, textToUser)
 
         } else {
@@ -32,11 +27,9 @@ function sendCommands(chatbotToken, event, commandParamSplitted) {
       });
       
   } catch(error) {
-      textToUser="could not find info for " + commandParamSplitted
+      textToUser="Could not find info for " + commandParamSplitted
       makeRequest(chatbotToken, event, textToUser)
   }
-  
- 
 }
 
 function makeRequest(chatbotToken, event, textToUser){

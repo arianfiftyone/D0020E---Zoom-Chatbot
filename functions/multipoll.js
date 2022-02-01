@@ -15,7 +15,7 @@ function sendMpollMsg(chatbotToken, event, commandParamChoices) {
       'account_id': event.payload.accountId,
       'content': {
         'head': {
-          'text': 'Vote multipoll command header'
+          'text': 'Vote multipoll'
         },
         'body': [{
           'type': 'section',
