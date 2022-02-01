@@ -38,7 +38,7 @@ app.use(bodyParser.json())
 
 // recieves redirect url
 app.get('/authorize', async function (req, res) {
-  res.send('Thanks for installing the zChatbot for Zoom!')
+  res.send('Thanks for installing the ' + process.env.slash_command + ' for Zoom!')
 })
 
 // recieves slash commands and user actions
@@ -223,7 +223,7 @@ app.get('/zoomverify/verifyzoom.html', (req, res) => {
 
 // optional, could be your app web homepage with link to install or pictures of how it works
 app.get('/', (req, res) => {
-  res.send('Welcome to the zChatbot for Zoom!')
+  res.send('Welcome to the ' + process.env.slash_command + ' for Zoom!')
 })
 
 // required, uninstall flow
