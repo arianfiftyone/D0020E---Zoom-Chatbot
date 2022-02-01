@@ -10,7 +10,11 @@ const multipollFunction = require('./functions/multipoll.js')
 const coinflipFunction = require('./functions/coinflip.js')
 const weatherFunction = require('./functions/weather.js')
 const infoFunction = require('./functions/info.js')
+<<<<<<< HEAD
+const matchingFunction = require('./functions/longestmatch.js')
+=======
 const commandsFunction = require('./functions/commands.js')
+>>>>>>> 9e361b115434eca9caf930ce567a992d06a6194a
 
 // Gigaomega object
 const {
@@ -125,6 +129,9 @@ chatbot.on('commands', async function (event) {
     else if (secondCommand == 'commands') {
       withChatbotToken(commandsFunction)
     }
+    else {
+      withChatbotToken(matchingFunction)
+    }
   }
   
 
@@ -148,7 +155,7 @@ chatbot.on('commands', async function (event) {
           callbackFunction(body.access_token, event, commandParamSplitted)
         }
         else {
-          console.log('could not find secondCommand [' + secondCommand + ']')
+          callbackFunction(body.access_token, event, secondCommand)
         }
       }
     })
