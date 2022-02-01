@@ -1,0 +1,8 @@
+create a poll where users can upvote or downvote.
+Wehn the 'Results' button is pressed, the count is stopped and presented in chat.
+
+usage in chat (skip /[yourCommand] when directly talking to the bot):
+/[yourCommand] poll [question?]
+
+example:
+/zoombot poll Tacos for lunch?

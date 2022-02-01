@@ -123,7 +123,6 @@ chatbot.on('commands', async function (event) {
       withChatbotToken(infoFunction)
     } 
     else if (secondCommand == 'commands') {
-      console.log('jajajaajajaa')
       withChatbotToken(commandsFunction)
     }
   }
