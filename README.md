@@ -47,12 +47,16 @@ To run the completed Chatbot locally, follow these steps,
    
 4. Open your ngrok https url in a browser, you should see this,
 
-   `"Your welcome message"`
-   
+   `'Welcome to the "your slash_command" for Zoom!'`
+  
 5. On your App Marketplace Dashboard, add your ngrok https url to your Whitelist URLs (App Credentials Page), **Development** Redirect URL for OAuth (App Credentials Page), and **Development** Bot Endpoint URL (Features Page). Make sure to match the path after your ngrok https url with the express routes in index.js.
 
-   > In order to click the **Save** button on the Features page when adding a Slash Command and Development Bot Endpoint URL, you have to provide a Production Bot Endpoint URL. Feel free to use https://zoom.us as a placeholder.
+   > In order to click the **Save** button on the Features page when adding a Slash Command and Development Bot Endpoint URL, you have to provide a Production Bot Endpoint URL.    Feel free to use https://zoom.us as a placeholder.
 
    After that, your app is ready to be installed!
+   
+ 7. On your App Marketplace Dashboard, go to the **Local Test** page and click **Install**. After you click the **Authorize** button, you should be taken to your redirect url and see this,
+
+   `Thanks for installing the "your slash_command" for Zoom!`
 
 
