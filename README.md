@@ -38,10 +38,10 @@ To run the completed Chatbot locally, follow these steps,
 
    `client_id=Required` Your Zoom **Development Client ID**, found in your Zoom app's **App credentials** tab. <br />
    `client_secret=Required` Your Zoom **Development Client Secret**, found in your Zoom app's **App credentials** tab. <br />
-   `verification_token=Required` The Zoom **Verification Token**, found in your Zoom app's **Feature** tab.
-   `bot_jid=Required` Your Zoom **Development Bot JID**, found in your Zoom app's **Feature** tab.
-   `slash_command=Required` Your Zoom **Slash command**, found in your Zoom app's **Feature** tab.
-   `openweather_accesskey=Required` Your Openweather **Access Key**, found on Openweather.org > Account > API keys.
+   `verification_token=Required` The Zoom **Verification Token**, found in your Zoom app's **Feature** tab. <br />
+   `bot_jid=Required` Your Zoom **Development Bot JID**, found in your Zoom app's **Feature** tab. <br />
+   `slash_command=Required` Your Zoom **Slash command**, found in your Zoom app's **Feature** tab. <br />
+   `openweather_accesskey=Required` Your Openweather **Access Key**, found on Openweather.org > Account > API keys. <br />
    
 3. In terminal:
 
