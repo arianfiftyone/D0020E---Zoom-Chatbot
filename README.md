@@ -30,7 +30,7 @@ To run the completed Chatbot locally, follow these steps,
 
    `$ cd D0020E---Zoom-Chatbot`
 
-   `$ npm install request express body-parser dotenv string-similarity --save`
+   `$ npm install request express body-parser dotenv string-similarity request-promise cheerio --save`
 
    `$ touch .env`
    
