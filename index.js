@@ -85,11 +85,12 @@ filename = './commandsInfo/all.txt'
   fs.readFile(filename, 'utf8', function(err, data) {
 
     if(err){
-    
-
+      console.log("Fuck you")
     } else {
       str = data.toString()
-      commandsArray = str.split('\n')
+      str = str.replaceAll("\n", " ")
+      
+      commandsArray = str.split(" ")
     }
         
   });

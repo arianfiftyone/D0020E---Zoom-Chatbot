@@ -4,7 +4,6 @@ const stringSimilarity = require('string-similarity')
 
 function commandBestMatch(chatbotToken, event, secondCommand, commandsArray) {
 
-
     let matches = stringSimilarity.findBestMatch(secondCommand, commandsArray)
     let output = ""
     if (matches.bestMatch.rating > 0.3) {
