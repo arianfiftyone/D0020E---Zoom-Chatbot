@@ -1,7 +1,7 @@
 const request = require('request')
+const tentaFunction = require('./kronox.js')
 
 var info = {}
-
 
 function sendInfo(chatbotToken, event, commandParamSplitted) {
   let commandList = commandParamSplitted.split(' ')
@@ -9,14 +9,19 @@ function sendInfo(chatbotToken, event, commandParamSplitted) {
     const keys = Object.keys(info)
     textToUser = 'You can get information about the following things: ' + keys
   }
-  else if (commandList[0] == 'printAll') {
-    textToUser = ""
-    for (key in info) {
-      textToUser += key + ": " + info[key] + "\n"
-    }
+  else if (commandList[0] === 'all') {
+    textToUser = allInfo()
+  }
+  else if (commandList[0] === 'tenta') {
+    tentaFunction(commandList[1], chatbotToken, event)
+    return
   }
   else if (commandList[0] === 'add') {
-    textToUser = addInfo(commandList)
+    addInfo(commandList)
+    textToUser = "Info added!"
+  }
+  else if (commandList[0] === 'find'){
+    textToUser = commandList[1] + ": " + info[commandList[1]] 
   }
   else if(commandList[0] === 'remove') {
     textToUser = removeInfo(commandList[1])
@@ -60,12 +65,18 @@ function sendInfo(chatbotToken, event, commandParamSplitted) {
 }
 
 function addInfo(commandList) {
-  let valueString = ""
-  for (let i = 2; i < commandList.length; i++) {
-    valueString += commandList[i] +  " "
-  }
-  info[commandList[1]] = valueString
-  textToUser = "Info added!"
+    let valueString = ""
+    for (let i = 2; i < commandList.length; i++) {
+        valueString += commandList[i] +  " "
+    }
+    info[commandList[1]] = valueString
+}
+
+function allInfo() {
+  textToUser = ""
+    for (key in info) {
+      textToUser += key + ": " + info[key] + "\n"
+    }
   return textToUser
 }
 
@@ -79,4 +90,4 @@ function removeInfo(keyToRemove) {
   }
   return textToUser
 }
-module.exports = sendInfo
+module.exports = sendInfo 
