@@ -3,7 +3,8 @@ const request = require('request')
 const cheerio = require('cheerio')
 
 var kronoxUrl
-var item = ""
+var tentaInfo = ""
+var tentaDate = ""
 
 function sendTenta(commandParamSplitted, chatbotToken, event) {
     var hittaTentaUrl = 'https://tenta.ltu.se/ajax/ajax_autocompleteResurser.jsp?typ=kurs&term='
@@ -23,16 +24,31 @@ function sendTenta(commandParamSplitted, chatbotToken, event) {
 function hittaDatum(event, chatbotToken) {
     rp(kronoxUrl).then(function(html) {
         const $ = cheerio.load(html)
-        const dataWhite = $('.data-white')
-        $('.data-white td').each((i, el) => {
+        const tentaDayClass = $('.data-white td')
+        const tentaDateTag = $('b')
+
+
+        tentaDateTag.each((i, el) => {
+          if (i > 0) {
+            tentaDate = $(el).text()
+          }
+          if (i == 1) {
+            return false
+          }
+        })
+
+
+        tentaDayClass.each((i, el) => {
             if (i > 1) {
-                item = $(el).text()
+                tentaInfo = $(el).text()
             }
             if (i == 2) {
                 sendRequest(event, chatbotToken)
                 return false
             }
-        });
+        })
+
+      
     })
     .catch(function(err) {
         console.log(err)
@@ -40,6 +56,7 @@ function hittaDatum(event, chatbotToken) {
 }
 
 function sendRequest(event, chatbotToken) {
+  tentaInfo = tentaInfo + ': ' + tentaDate
     request({
         url: 'https://api.zoom.us/v2/im/chat/messages',
         method: 'POST',
@@ -54,7 +71,7 @@ function sendRequest(event, chatbotToken) {
             },
             'body': [{
               'type': 'message',
-              'text': item
+              'text': tentaInfo
             }]
           }
         },
