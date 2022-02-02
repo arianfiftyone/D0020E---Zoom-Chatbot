@@ -1,5 +1,5 @@
 const request = require('request')
-const kronox = require('./kronox.js')
+const tentaFunction = require('./kronox.js')
 
 var info = {}
 
@@ -9,8 +9,12 @@ function sendInfo(chatbotToken, event, commandParamSplitted) {
     const keys = Object.keys(info)
     textToUser = 'You can get information about the following things: ' + keys
   }
-  else if (commandList[0] == 'all') {
+  else if (commandList[0] === 'all') {
     textToUser = 'All info currently avaliable is displayed below: ' + printAllInfo(Object.keys(info), Object.values(info))
+  }
+  else if (commandList[0] === 'tenta') {
+    tentaFunction(commandList[1], chatbotToken, event)
+    return
   }
   else if (commandList[0] === 'add') {
     addInfo(commandList)

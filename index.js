@@ -12,7 +12,7 @@ const weatherFunction = require('./functions/weather.js')
 const infoFunction = require('./functions/info.js')
 const matchingFunction = require('./functions/commandbestmatch.js')
 const commandsFunction = require('./functions/commands.js')
-const tentaFunction = require('./functions/kronox.js')
+const rpsFunction = require('./functions/rps.js')
 
 // Gigaomega object
 const {
@@ -115,7 +115,7 @@ function withChatbotTokenCommands(callbackFunction, event) {
         pollCountAlternatives = callbackFunction(body.access_token, event, commandParamChoices)
       }
       else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip' || 
-      secondCommand === 'weather' || secondCommand === 'info' || secondCommand === 'commands' || secondCommand === 'tenta') {
+      secondCommand === 'weather' || secondCommand === 'info' || secondCommand == 'commands' || secondCommand == 'rps') {
         callbackFunction(body.access_token, event, commandParamSplitted)
       }
       else {
@@ -165,8 +165,8 @@ function checkCommands(event) {
   else if (secondCommand == 'commands') {
     withChatbotTokenCommands(commandsFunction, event)
   }
-  else if (secondCommand === 'tenta') {
-    withChatbotTokenCommands(tentaFunction, event)
+  else if (secondCommand == 'rps') {
+    withChatbotTokenCommands(rpsFunction, event)
   }
   else {
     withChatbotTokenCommands(matchingFunction, event)
