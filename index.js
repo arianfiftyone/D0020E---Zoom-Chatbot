@@ -79,7 +79,7 @@ let commandParamIndex
 let commandParamSplitted
 let commandsArray
 
-var allCommands = fs.readFileSync('./commandsinfo/all.txt', 'utf-8')
+var allCommands = fs.readFileSync('./commandsInfo/all.txt', 'utf-8')
 allCommands = allCommands.replaceAll('\r', '')
 commandsArray = allCommands.split('\n')
 

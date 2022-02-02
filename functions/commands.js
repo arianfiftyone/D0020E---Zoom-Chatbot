@@ -11,7 +11,7 @@ function sendCommands(chatbotToken, event, commandParamSplitted) {
         throw err
       }
       
-      filename = './commandsinfo/' + commandParamSplitted + '.txt'
+      filename = './commandsInfo/' + commandParamSplitted + '.txt'
       fs.readFile(filename, 'utf8', function(err, data) {
 
         if(err){
