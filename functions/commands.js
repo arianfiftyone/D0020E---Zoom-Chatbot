@@ -1,4 +1,5 @@
 const request = require('request')
+var fs = require('fs')
 
 function sendCommands(chatbotToken, event, commandParamSplitted) {
 
@@ -9,7 +10,7 @@ function sendCommands(chatbotToken, event, commandParamSplitted) {
         console.log('WARNING, ATTEMPT OF UNAUTHORIZED FILE ACCESS ATTEMPTED\n')
         throw err
       }
-      var fs = require('fs')
+      
       filename = './commandsInfo/' + commandParamSplitted + '.txt'
       fs.readFile(filename, 'utf8', function(err, data) {
 
@@ -20,6 +21,9 @@ function sendCommands(chatbotToken, event, commandParamSplitted) {
         } else {
           console.log('OK: ' + filename)
           textToUser = data
+          if(commandParamSplitted === 'all'){
+            textToUser = 'Available commands: \n' + textToUser
+          }
           console.log(textToUser)
           makeRequest(chatbotToken, event, textToUser)
         }

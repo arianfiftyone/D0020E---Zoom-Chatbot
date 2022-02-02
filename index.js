@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
+var fs = require('fs')
 
 const repeatFunction = require('./functions/repeat.js')
 const pollFunction = require('./functions/poll.js')
@@ -78,6 +79,21 @@ let commandParamIndex
 let commandParamSplitted
 
 
+let str
+let commandsArray
+filename = './commandsInfo/all.txt'
+  fs.readFile(filename, 'utf8', function(err, data) {
+
+    if(err){
+    
+
+    } else {
+      str = data.toString()
+      commandsArray = str.split('\n')
+    }
+        
+  });
+
 // calls chatbot.on() function below based on what is sent (commands or actions)
 chatbot.on('commands', async function (event) {
 
@@ -119,7 +135,7 @@ function withChatbotTokenCommands(callbackFunction, event) {
         callbackFunction(body.access_token, event, commandParamSplitted)
       }
       else {
-        secondCommand = callbackFunction(body.access_token, event, secondCommand)
+        secondCommand = callbackFunction(body.access_token, event, secondCommand, commandsArray)
       }
     }
   })

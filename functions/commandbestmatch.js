@@ -1,11 +1,11 @@
 const request = require('request')
 const stringSimilarity = require('string-similarity')
-const commands = ['repeat', 'coinflip', 'poll', 'multipoll', 'weather', 'info']
 
 
-function commandBestMatch(chatbotToken, event, secondCommand) {
+function commandBestMatch(chatbotToken, event, secondCommand, commandsArray) {
 
-    let matches = stringSimilarity.findBestMatch(secondCommand, commands)
+
+    let matches = stringSimilarity.findBestMatch(secondCommand, commandsArray)
     let output = ""
     if (matches.bestMatch.rating > 0.3) {
         output = "Did you mean: " + matches.bestMatch.target + "?"
