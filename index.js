@@ -77,23 +77,11 @@ let pollCountAlternatives = {}
 let secondCommand
 let commandParamIndex
 let commandParamSplitted
-
-
-let str
 let commandsArray
-filename = './commandsInfo/all.txt'
-  fs.readFile(filename, 'utf8', function(err, data) {
 
-    if(err){
-      console.log("Fuck you")
-    } else {
-      str = data.toString()
-      str = str.replaceAll("\n", " ")
-      
-      commandsArray = str.split(" ")
-    }
-        
-  });
+var allCommands = fs.readFileSync('./commandsinfo/all.txt', 'utf-8')
+allCommands = allCommands.replaceAll('\r', '')
+commandsArray = allCommands.split('\n')
 
 // calls chatbot.on() function below based on what is sent (commands or actions)
 chatbot.on('commands', async function (event) {

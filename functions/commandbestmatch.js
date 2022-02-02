@@ -1,13 +1,12 @@
 const request = require('request')
 const stringSimilarity = require('string-similarity')
 
-
 function commandBestMatch(chatbotToken, event, secondCommand, commandsArray) {
 
     let matches = stringSimilarity.findBestMatch(secondCommand, commandsArray)
-    let output = ""
+    let suggestedMatch = ""
     if (matches.bestMatch.rating > 0.3) {
-        output = "Did you mean: " + matches.bestMatch.target + "?"
+        suggestedMatch = "Did you mean: " + matches.bestMatch.target + "?"
 
         request({
             url: 'https://api.zoom.us/v2/im/chat/messages',
@@ -23,7 +22,7 @@ function commandBestMatch(chatbotToken, event, secondCommand, commandsArray) {
                     },
                     'body': [{
                             'type': 'message',
-                            'text': output
+                            'text': suggestedMatch
                         },
                         {
                             'type': 'actions',
