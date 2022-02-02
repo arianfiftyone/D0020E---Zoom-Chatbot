@@ -10,7 +10,7 @@ function sendInfo(chatbotToken, event, commandParamSplitted) {
     textToUser = 'You can get information about the following things: ' + keys
   }
   else if (commandList[0] === 'all') {
-    textToUser = 'All info currently avaliable is displayed below: ' + printAllInfo(Object.keys(info), Object.values(info))
+    textToUser = allInfo()
   }
   else if (commandList[0] === 'tenta') {
     tentaFunction(commandList[1], chatbotToken, event)
@@ -72,16 +72,12 @@ function addInfo(commandList) {
     info[commandList[1]] = valueString
 }
 
-function printAllInfo(keys, values) {
-    console.log(keys)
-    console.log(values)
-    var printAll = "\n \n"
-    for (let i = 0; i < Object.keys(info).length; i++) {
-        const key = keys[i]
-        const value = values[i]
-        printAll = printAll + key + ": " + value + "\n"
+function allInfo() {
+  textToUser = ""
+    for (key in info) {
+      textToUser += key + ": " + info[key] + "\n"
     }
-    return printAll
+  return textToUser
 }
 
 function removeInfo(keyToRemove) {
