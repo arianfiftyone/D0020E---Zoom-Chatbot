@@ -79,6 +79,8 @@ let commandParamIndex
 let commandParamSplitted
 let commandsArray
 
+var allowSuggestedMatch
+
 var allCommands = fs.readFileSync('./commandsInfo/all.txt', 'utf-8')
 allCommands = allCommands.replaceAll('\r', '')
 commandsArray = allCommands.split('\n')
@@ -174,6 +176,7 @@ function checkCommands(event) {
     withChatbotTokenCommands(rpsFunction, event)
   }
   else {
+    allowSuggestedMatch = true
     withChatbotTokenCommands(matchingFunction, event)
   }
   
@@ -203,12 +206,14 @@ chatbot.on('actions', async function (event) {
   else if (pollCountAlternatives[event.payload.actionItem.value]++) {
   }
   
-  if (event.payload.actionItem.value === 'yes') {
+  else if (event.payload.actionItem.value === 'yesCommandsBestMatch' && allowSuggestedMatch===true) {
+    allowSuggestedMatch=false
     checkCommands(event)
   }
-  else if (event.payload.actionItem.value === 'no') {
+  else if (event.payload.actionItem.value === 'noCommandsBestMatch' && allowSuggestedMatch===true) {
     secondCommand = 'commands'
     commandParamSplitted = 'all'
+    allowSuggestedMatch=false
     checkCommands(event)
   }
   
