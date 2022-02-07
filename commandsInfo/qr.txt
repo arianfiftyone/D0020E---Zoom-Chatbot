@@ -1,0 +1,7 @@
+Generate a QR code for a word/link of your choice
+
+Usage in cha(skip /[yourCommand] when talking directly to the bot):
+/[yourCommand] qr [link]
+
+example:
+/zoombot qr https://nolleperioden.se

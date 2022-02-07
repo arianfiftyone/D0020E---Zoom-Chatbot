@@ -11,7 +11,7 @@ function qr(chatbotToken, event, commandParamSplitted) {
               {
                 'type': 'attachments',
                 'img_url': test,
-                'resource_url': 'https://goqr.me/api/doc/create-qr-code/',
+                'resource_url': commandParamSplitted,
                 'information': {
                   'title': {
                     'text': 'Follow QR-code for course survey'
