@@ -1,0 +1,12 @@
+Play a game of rock, paper, scissor with the bot
+
+Arguments:
+rock,
+paper, 
+scissor
+
+usage in chat(skip /[yourCommand] when talking directly to the bot):
+/[yourCommand] rps [rock, paper, or scissor]
+
+example: 
+/zoombot rps rock
