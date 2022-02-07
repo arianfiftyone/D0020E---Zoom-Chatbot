@@ -14,6 +14,7 @@ const infoFunction = require('./functions/info.js')
 const matchingFunction = require('./functions/commandbestmatch.js')
 const commandsFunction = require('./functions/commands.js')
 const rpsFunction = require('./functions/rps.js')
+const qrFunction = require('./functions/qr.js')
 
 // Gigaomega object
 const {
@@ -122,7 +123,7 @@ function withChatbotTokenCommands(callbackFunction, event) {
         pollCountAlternatives = callbackFunction(body.access_token, event, commandParamChoices)
       }
       else if (secondCommand === 'poll' || secondCommand === 'repeat' || secondCommand === 'coinflip' || 
-      secondCommand === 'weather' || secondCommand === 'info' || secondCommand == 'commands' || secondCommand == 'rps') {
+      secondCommand === 'weather' || secondCommand === 'info' || secondCommand == 'commands' || secondCommand == 'rps' || secondCommand == 'qr') {
         callbackFunction(body.access_token, event, commandParamSplitted)
       }
       else {
@@ -174,6 +175,9 @@ function checkCommands(event) {
   }
   else if (secondCommand == 'rps') {
     withChatbotTokenCommands(rpsFunction, event)
+  }
+  else if (secondCommand == 'qr') {
+    withChatbotTokenCommands(qrFunction, event)
   }
   else {
     allowSuggestedMatch = true
