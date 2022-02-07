@@ -4,7 +4,7 @@ Commands:
 add - adds info to the dictionary 
 remove - removes info from the dictionary
 lookup - search for specific key
-printAll - prints all information avaliable
+all - prints all information avaliable
 list - lists all keys you can look up
 
 usage in chat(skip /[yourCommand] when talking directly to the bot);
