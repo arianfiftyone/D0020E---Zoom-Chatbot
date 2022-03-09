@@ -5,17 +5,14 @@ The use of this app is a subject to [Zooms Terms of Use](https://explore.zoom.us
 
 This is a schoolproject in the course 'D0020E - Projekt i Datateknik' using the [Zoom Chatbot NPM Package](https://www.npmjs.com/package/@zoomus/chatbot)
 
-![Chatbot for Zoom]()
+![Chatbot for Zoom](https://avexpert.se/wp-content/uploads/2021/05/Zoom-Logo.png)
 
 ## Prerequisites
 1. [A free Zoom account](https://marketplace.zoom.us/)
 2. [Ngrok.io](https://ngrok.com/)
 3. [Node.js](https://nodejs.org/en/)
 4. [A free Openweathermap account](https://openweathermap.org)
-5. .
-6. .
-7. .
-8. 
+
 
 
 To run the completed Chatbot code locally, continue reading below.
